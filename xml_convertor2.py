@@ -34,7 +34,7 @@ def process_xml_file(file_path):
             if "Amount" in key:
                 temp_template[key] = int(temp_template[key] / 100)
         temp_template["Total Activity Count"] = total_count
-        temp_template["Total Activity Amount"] = total_amount/100
+        temp_template["Total Activity Amount"] = int(total_amount/100)
         final_data.append(temp_template)
     except ET.ParseError as e:
         print(f"Error parsing {file_path}: {e}")
