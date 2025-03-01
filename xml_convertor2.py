@@ -16,6 +16,8 @@ def process_xml_file(file_path):
         
         wrapped_xml = f"<FakeRoot>{xml_content}</FakeRoot>"
         root = ET.fromstring(wrapped_xml)
+        total_count = 0
+        total_amount = 0
         
         print(f"Processing: {file_path}")
         for item in root.findall("ValueLinkLineItem"):
@@ -23,12 +25,16 @@ def process_xml_file(file_path):
             print(data)
             temp_template["Merchant Id"] = data["Merchant Number"]
             temp_template["Store Number"] = data["Alt Merchant Number"]
+            total_count += data["Count"]
+            total_amount += data["Amount"]
             temp_template[data["Category"]+" Count"] += data["Count"]
             temp_template[data["Category"]+" Amount"] += data["Amount"]
         
         for key in temp_template:
             if "Amount" in key:
                 temp_template[key] = int(temp_template[key] / 100)
+        temp_template["Total Activity Count"] = total_count
+        temp_template["Total Activity Amount"] = total_amount/100
         final_data.append(temp_template)
     except ET.ParseError as e:
         print(f"Error parsing {file_path}: {e}")
@@ -60,7 +66,7 @@ def main():
             process_xml_file(file_path)
 
     df = pl.DataFrame(final_data)
-    df.write_csv(f"{output_file}.csv")
+    df.write_excel(f"{output_file}.xlsx")
 
 if __name__ == "__main__":
     main()
