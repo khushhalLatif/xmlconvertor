@@ -1,0 +1,17 @@
+<ValueLinkLineItem>
+    <clientId>52652016-05-23-14.01.21.3533279</clientId>
+    <sDate>10/04/2024</sDate>
+    <date>10/04/2024</date>
+    <product>ValueLink</product>
+    <desc>Load</desc>
+    <creationDate>10/04/2024</creationDate>
+    <id>24100549217878586</id>
+    <amount>
+        <FSNDollarUS amount="-90000" />
+    </amount>
+    <consortiumNumber>99999999</consortiumNumber>
+    <merchantNumber>WMUSPAYLOCS</merchantNumber>
+    <altMerchantNumber>00000245265</altMerchantNumber>
+    <category>GPR-Load</category>
+    <count>2</count>
+</ValueLinkLineItem>
