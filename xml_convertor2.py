@@ -2,11 +2,16 @@ import os
 import xml.etree.ElementTree as ET
 import shutil
 from openpyxl import load_workbook
+from datetime import datetime, timedelta
+import json
+
 
 file_name = "Excelsheet.xlsx"
 sheet_name = "XML data"
 
-output_file = "output"
+# read config.json
+
+
 final_data = []
 cols = []
 # Load column names from Excel without pandas
@@ -116,7 +121,16 @@ def write_to_excel(data, original_file, sheet_name, backup_file="backup.xlsx"):
         book.save(backup_file)
 
 def main():
-    input_folder = "input"  # Change this to your actual input folder
+    with open("config.json", "r") as f:
+        config_data = json.load(f)
+
+    date = (datetime.now() + timedelta(days=config_data["day"])).strftime('%Y%m%d')
+    input_folder = config_data["input_folder"].replace("DATE", date)
+
+
+    date = (datetime.now() + timedelta(days=config_data["day"])).strftime('%m.%d.%Y')
+
+    output_file = config_data["output_file"].replace("DATE", date)
     if not os.path.exists(input_folder):
         print(f"Input folder '{input_folder}' does not exist.")
         return
